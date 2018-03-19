@@ -30,7 +30,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QGroupBox" name="Midfielders">
+   <widget class="QGroupBox" name="MidfieldersWidget">
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -166,7 +166,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="Defenders">
+   <widget class="QGroupBox" name="DefendersWidget">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -308,9 +308,9 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>110</y>
-      <width>691</width>
+      <x>50</x>
+      <y>30</y>
+      <width>721</width>
       <height>61</height>
      </rect>
     </property>
@@ -344,7 +344,7 @@
        <x>5</x>
        <y>20</y>
        <width>681</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="text">
@@ -406,7 +406,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QGroupBox" name="Attackers">
+   <widget class="QGroupBox" name="AttackersWidget">
     <property name="geometry">
      <rect>
       <x>650</x>
