@@ -41,11 +41,11 @@ Manager& Manager::operator=(const Manager& Manager) {
 
 ostream& operator<< (ostream& os, const Human& Human)
 {
-    os << Human.GetName();
-    os << Human.GetSurname();
+    //os << Human.GetName();
+    //os << Human.GetSurname();
     os << Human.GetHeight();
     os << Human.GetAge();
-    os << Human.GetNation();
+    //os << Human.GetNation();
 
     return os;
 }

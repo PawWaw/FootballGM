@@ -2,35 +2,34 @@
 #define _HUMAN_H_
 
 #include <string>
+#include <QString>
 
 using namespace std;
 
 class Human {
 
-protected:
+public:
 
-    string name;
-    string surname;
+    QString name;
     float height;
     int age;
-    string nationality;
+    QString nationality;
 //	friend ostream& operator<< (ostream& os, const Human& foo);
 
-public:
+
     // constructors
     Human();
-    Human(string, string, float, int, string);
+    Human(QString name, float height, int age, QString nationality);
     ~Human();
 
     // setters
 
     // getters
     Human GetInfo(Human);
-    string GetName() const;
-    string GetSurname() const;
+    QString GetName() const;
     float GetHeight() const;
     int GetAge() const;
-    string GetNation() const;
+    QString GetNation() const;
 
     // operators
     Human& operator= (const Human& Human);

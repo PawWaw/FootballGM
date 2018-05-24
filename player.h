@@ -1,21 +1,31 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
+#include <QString>
+#include <vector>
+#include <string>
+#include "human.h"
 
+using namespace std;
 
-class Player {
+class Player : public Human
+{
 
-protected:
+public:
     float injury;
     float fitness;
     float quality;
     float price;
     int chemistry;
-    int strength;
+    float strength;
+    QString position;
+    int specificstat1, specificstat2, specificstat3;
 
-public:
+
     // constructors
     Player();
-    Player(float, float, float, float, int, int);
+    Player(float injury, float fitness, float quality, float price, int chemistry, float strength, int specificstat1, int specificstat2,
+           int specificstat3, QString position, QString name, float height, int age, QString nationality);
+
     ~Player();
 
     // setters
@@ -25,7 +35,6 @@ public:
     int SetStrength();
 
     // getters
-    //string GetInfo();
     float GetInjury();
     float GetFitness();
     float GetQuality();
@@ -38,6 +47,9 @@ public:
 
     // other
     void PrintInfo();
+    void PlayerCosts();
+
+
 };
 
 #endif // !_PLAYER_H_

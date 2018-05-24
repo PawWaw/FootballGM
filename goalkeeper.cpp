@@ -12,7 +12,7 @@ Goalkeeper::Goalkeeper()
 
 }
 
-Goalkeeper::Goalkeeper(int reflex, int parades, int composure)
+Goalkeeper::Goalkeeper(string name, int reflex, int parades, int composure)
 {
 
 }
@@ -65,4 +65,10 @@ void Goalkeeper::PrintInfo(Goalkeeper goalkeeper)
     //cout << goalkeeper.GetReflex << endl;
     //cout << goalkeeper.GetParades << endl;
     //cout << goalkeeper.GetComposure << endl;
+}
+
+void FillGoalkeeperVector()
+{
+    //Goalkeeper gk;
+    //gk.goalkeepers.push_back(Goalkeeper("David De Gea", 90, 90, 86));
 }

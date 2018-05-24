@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>200</height>
+    <width>400</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>550</width>
-    <height>200</height>
+    <width>400</width>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>550</width>
-    <height>200</height>
+    <width>400</width>
+    <height>600</height>
    </size>
   </property>
   <property name="font">
@@ -32,16 +32,16 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Football League Simulator - Data</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>10</y>
-      <width>521</width>
-      <height>81</height>
+      <x>100</x>
+      <y>20</y>
+      <width>211</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -51,14 +51,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Welcome in FootballGM! </string>
+     <string>Welcome!!!</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>100</y>
+      <x>170</x>
+      <y>460</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -67,26 +67,13 @@
      <string>Play</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>100</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Exit</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>550</width>
+     <width>400</width>
      <height>21</height>
     </rect>
    </property>

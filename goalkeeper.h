@@ -2,6 +2,7 @@
 #define _GOALKEEPER_H_
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
     // konstruktory
 
     Goalkeeper();
-    Goalkeeper(int, int, int);
+    Goalkeeper(string, int, int, int);
     ~Goalkeeper();
 
     // setters
@@ -39,6 +40,8 @@ public:
 
     // other
 
+    vector<Goalkeeper> goalkeepers;
+    void FillGoalkeeperVector();
     void PrintInfo(Goalkeeper);
 
 };
