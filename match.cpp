@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<Player> Match::players;
+vector<Human> Match::playerss;
 
 Match::Match()
 {

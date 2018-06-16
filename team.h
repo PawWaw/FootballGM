@@ -2,6 +2,7 @@
 #define _TEAM_H_
 
 #include <string>
+#include <QString>
 using namespace std;
 
 class Team
@@ -13,8 +14,7 @@ protected:
 public:
     // constructors
     Team();
-    Team(const Team &team);
-    Team(string name, string stadium, string city, int power, int streak, int wins, int draws, int losses, int points);
+    Team(QString name, QString stadium, QString city, int power, int streak, int wins, int draws, int losses, int points);
 
     // setters
     int SetPower(int);
@@ -38,20 +38,26 @@ public:
 
     // other
     void PrintInfo();
-    //Team Simulation(static Team&, static Team&);
-    //Team SimulateMatch(static Team&, static Team&);
-    string stadium;
-    string city;
-    int power = 100;
+    Team Simulation(Team&, Team&);
+    Team SimulateMatch(Team&, Team&);
+    int CalculateUserPower(int MyPower);
+    int CalculateOpponentPower(int EnemyPower);
+    int SetTeamFitness();
+    void SetTeamInjury();
+    void HealInjury();
+    bool sorting(Team& team1, Team& team2);
+    QString stadium;
+    QString city;
+    int power;
     char * imageData = nullptr;
     Team * next;
     Team * prev;
-    int wins = 0;
-    int draws = 0;
-    int losses = 0;
-    int points = 0;
-    float streak = 1;
-    string name;
+    int wins;
+    int draws;
+    int losses;
+    int points;
+    float streak;
+    QString name;
 };
 
 #endif

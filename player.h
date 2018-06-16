@@ -3,13 +3,13 @@
 #include <QString>
 #include <vector>
 #include <string>
-#include "human.h"
+#include <human.h>
+
 
 using namespace std;
 
 class Player : public Human
 {
-
 public:
     float injury;
     float fitness;
@@ -23,8 +23,8 @@ public:
 
     // constructors
     Player();
-    Player(float injury, float fitness, float quality, float price, int chemistry, float strength, int specificstat1, int specificstat2,
-           int specificstat3, QString position, QString name, float height, int age, QString nationality);
+    Player(QString name2, float height2, int age2, QString nationality2, float injury, float fitness, float quality, float price, int chemistry, QString position, float strength,  int specificstat1, int specificstat2,
+           int specificstat3);
 
     ~Player();
 
@@ -33,6 +33,7 @@ public:
     float SetFitness();
     float SetQuality();
     int SetStrength();
+    void SetAge();
 
     // getters
     float GetInjury();
@@ -48,6 +49,7 @@ public:
     // other
     void PrintInfo();
     void PlayerCosts();
+
 
 
 };

@@ -40,7 +40,9 @@ SOURCES += \
     statistics.cpp \
     team.cpp \
     match.cpp \
-    database.cpp
+    database.cpp \
+    simulation.cpp \
+    simulationround.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -58,7 +60,9 @@ HEADERS += \
     stdafx.h \
     targetver.h \
     match.h \
-    database.h
+    database.h \
+    simulation.h \
+    simulationround.h
 
 FORMS += \
         mainwindow.ui \
@@ -67,3 +71,4 @@ FORMS += \
 
 DISTFILES += \
     readme
+

@@ -5,93 +5,193 @@
 #include "player.h"
 #include "match.h"
 #include "goalkeeper.h"
+#include "defender.h"
+#include "midfielder.h"
+#include "database.h"
+#include "statistics.h"
+#include "simulation.h"
+#include "simulationround.h"
 #include <QLCDNumber>
 #include <QMessageBox>
+#include <QVBoxLayout>
+#include <QQuickStyle>
+#include <QString>
+#include "team.h"
+#include <windows.h>
+#include <QTime>
+#include <QPalette>
+#include <regex>
 
-SubWindow::SubWindow(QWidget *parent) :
-    QMainWindow(parent),
+SubWindow::SubWindow(MainWindow &_mainWindow, QWidget *parent) :
+    mainWindowRef(_mainWindow), QMainWindow(parent),
     ui(new Ui::SubWindow)
 {
     ui->setupUi(this);
-    SelectingTeam();
-    ui->centralwidget->setStyleSheet("background:rgb(255,255,245)");
+    QQuickStyle::setStyle("Material");
+    ui->centralwidget->setStyleSheet("background:rgb(252,238,225)");
     ui->SelectTeamWidget->setStyleSheet("text-color:white");
     ui->SelectTeamWidget->setStyleSheet("background:rgb(254,254,200);");
     ui->ChosenTeam->setStyleSheet("background:rgb(254,254,200);");
-    Match::players.clear();
+    DataBase::loadDataBase();
+    createCheckboxes();
+    SelectingTeam();
 }
 
-void SubWindow::ChoosePlayer(float cost)
+void SubWindow::createCheckboxes(){                                                         // tworzenie checkboxów zawodników
+
+    QVBoxLayout *vbox = new QVBoxLayout;
+    QVBoxLayout *vbox2 = new QVBoxLayout;
+    QVBoxLayout *vbox3 = new QVBoxLayout;
+    QVBoxLayout *vbox4 = new QVBoxLayout;
+    int xy = 10;
+    QFont newFont("Gill Sans MT", 10);
+
+
+
+    for (int i =0;i<15;i++){
+        QString value = "";
+        value.setNum(DataBase::playerz[i].price, 'g', 3);
+        QString text = DataBase::playerz[i].name + " (" + value + "$)";
+        QCheckBox *checkB = new QCheckBox(text);
+        vbox->addWidget(checkB);
+        goalkeepersCheckB.push_back(checkB);
+        checkB->setFont(newFont);
+        xy += 20;
+    }
+
+    for (int i =15;i<30;i++){
+        QString value = "";
+        value.setNum(DataBase::playerz[i].price, 'g', 3);
+        QString text = DataBase::playerz[i].name + " (" + value + "$)";
+        QCheckBox *checkB = new QCheckBox(text);
+        vbox2->addWidget(checkB);
+        defendersCheckB.push_back(checkB);
+        checkB->setFont(newFont);
+        xy += 20;
+    }
+
+    for (int i =30;i<45;i++){
+        QString value = "";
+        value.setNum(DataBase::playerz[i].price, 'g', 3);
+        QString text = DataBase::playerz[i].name + " (" + value + "$)";
+        QCheckBox *checkB = new QCheckBox(text);
+        vbox3->addWidget(checkB);
+        midfieldersCheckB.push_back(checkB);
+        checkB->setFont(newFont);
+        xy += 20;
+    }
+
+    for (int i =45;i<DataBase::playerz.size();i++){
+        QString value = "";
+        value.setNum(DataBase::playerz[i].price, 'g', 3);
+        QString text = DataBase::playerz[i].name + " (" + value + "$)";
+        QCheckBox *checkB = new QCheckBox(text);
+        vbox4->addWidget(checkB);
+        attackersCheckB.push_back(checkB);
+        checkB->setFont(newFont);
+        xy += 20;
+    }
+
+    vbox->addStretch(1);
+    vbox2->addStretch(1);
+    vbox3->addStretch(1);
+    vbox4->addStretch(1);
+    ui->goalkeepersGBox->setLayout(vbox);
+    ui->defendersGBox->setLayout(vbox2);
+    ui->midfieldersGB->setLayout(vbox3);
+    ui->attackersGB->setLayout(vbox4);
+}
+
+void SubWindow::ChoosePlayer(float cost)                                                        // zmiana budżetu po wybraniu zawodnika
 {
     money -= cost;
     ui->MoneyLeft->display(money);
     counter++;
     ui->PlayerCounter->display(counter);
-    CheckboxCheck();
 }
 
-void SubWindow::RejectPlayer(float cost)
+void SubWindow::RejectPlayer(float cost)                                                        // zmiana budżetu po usunięciu zawodnika
 {
     money += cost;
     ui->MoneyLeft->display(money);
     counter--;
     ui->PlayerCounter->display(counter);
-    CheckboxCheck();
 }
 
-void SubWindow::setOKUnclickable()
+void SubWindow::setOKUnclickable()                                                              // reakcja na przycisk OK
 {
     ui->Ok->setEnabled(false);
 }
 
-void SubWindow::setVisibleGoalkeeper(bool vis)
+void SubWindow::setVisibleGoalkeeper(bool vis)                                                  // ustawienie widzialności bramkarzy
 {
-    ui->GoalKeeperWidget->setVisible(vis);
+    ui->goalkeepersGBox->setVisible(vis);
 }
 
-void SubWindow::setVisibleDefender(bool vis)
+void SubWindow::setVisibleDefender(bool vis)                                                    // ustawienie widzialności obrońców
 {
-    ui->DefendersWidget->setVisible(vis);
+    ui->defendersGBox->setVisible(vis);
 }
 
-void SubWindow::setVisibleMidfielder(bool vis)
+void SubWindow::setVisibleMidfielder(bool vis)                                                  // ustawienie widzialności pomocników
 {
-    ui->MidfieldersWidget->setVisible(vis);
+    ui->midfieldersGB->setVisible(vis);
 }
 
-void SubWindow::setColorGoalkeeper()
+void SubWindow::setVisibleAttacker(bool vis)                                                    // ustawienie widzialności napastników
 {
-    ui->Goalkeepers->setStyleSheet("background:rgb(254,254,200);");
+    ui->attackersGB->setVisible(vis);
 }
 
-void SubWindow::setColorDefender()
+void SubWindow::setColorGoalkeeper()                                                            // kolor bramkarzy
 {
-    ui->DefendersWidget->setStyleSheet("background:rgb(56,0,60);");
+    ui->goalkeepersGBox->setStyleSheet("background:rgb(254,254,200);");
 }
 
-void SubWindow::setColorMidfielder()
+void SubWindow::setColorDefender()                                                              // kolor obrońców
 {
-    ui->MidfieldersWidget->setStyleSheet("background:rgb(56,0,60);");
+    ui->defendersGBox->setStyleSheet("background:rgb(56,0,60);");
 }
 
-void SubWindow::setColorAttacker()
+void SubWindow::setColorMidfielder()                                                            // kolor pomocników
 {
-    ui->AttackersWidget->setStyleSheet("background:rgb(56,0,60);");
+    ui->midfieldersGB->setStyleSheet("background:rgb(56,0,60);");
 }
 
-void SubWindow::setVisibleAttacker(bool vis)
+void SubWindow::setColorAttacker()                                                              // kolor napastników
 {
-    ui->AttackersWidget->setVisible(vis);
+    ui->attackersGB->setStyleSheet("background:rgb(56,0,60);");
 }
 
-void SubWindow::setVisibleChosenTeam(bool vis)
+void SubWindow::setVisibleChosenTeam(bool vis)                                                  // widoczność wybranej drużyny
 {
     ui->ChosenTeam->setVisible(vis);
+    ui->groupBox->setVisible(vis);
 }
 
-void SubWindow::setVisibleSimulateButton(bool vis)
+void SubWindow::setVisibleChosenCounter(bool vis)                                               // widoczność licznika wybranych i licznika rund
+{
+    ui->ChosenCounter->setVisible(vis);
+    ui->RoundCounter->setVisible(vis);
+}
+
+void SubWindow::setVisibleSimulateButton(bool vis)                                              // widoczność przycisków symulacji
 {
     ui->Simulate->setVisible(vis);
+    ui->Simulate_2->setVisible(vis);
+}
+
+void SubWindow::setDisabled()                                                                   // ukrywanie checkboxów zawodników
+{
+    ui->goalkeepersGBox->setEnabled(false);
+    ui->defendersGBox->setEnabled(false);
+    ui->midfieldersGB->setEnabled(false);
+    ui->attackersGB->setEnabled(false);
+}
+
+void SubWindow::DifficultyMessage()                                                             // okno informacyjne po włączeniu programu
+{
+    QMessageBox::information(this, "Start", "Choose difficulty level in Options to start.\nRemember, you can change it only once.");
 }
 
 SubWindow::~SubWindow()
@@ -99,8 +199,15 @@ SubWindow::~SubWindow()
     delete ui;
 }
 
-void SubWindow::CheckboxCheck()
+void SubWindow::CheckboxCheck(QCheckBox* checkB, PlayerInfo& player)                            // reakcja na interakcję z checkboxem
 {
+    if (checkB->isChecked())
+        ChoosePlayer(player.price);
+    else
+        RejectPlayer(player.price);
+
+    mainWindowRef.setPlayerLabel(player);
+
     if (counter == 21){
         ui->Ok->setEnabled(true);
     }
@@ -109,1300 +216,149 @@ void SubWindow::CheckboxCheck()
     }
 }
 
-void SubWindow::SelectingTeam()
+void SubWindow::SelectingTeam()                                                                 // powiązanie checkboxów z funkcjami
 {
-    connect(ui->Goalkeeper1_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper2_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper3_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper4_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper5_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper6_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper7_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper8_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper9_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper10_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper11_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper12_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper13_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper14_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Goalkeeper15_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender1_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender2_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender3_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender4_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender5_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender6_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender7_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender8_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender9_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender10_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender11_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender12_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender13_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender14_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Defender15_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder1_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder2_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder3_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder4_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder5_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder6_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder7_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder8_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder9_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder10_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder11_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder12_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder13_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder14_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Midfielder15_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker1_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker2_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker3_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker4_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker5_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker6_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker7_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker8_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker9_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker10_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker11_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker12_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker13_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker14_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
-    connect(ui->Attacker15_ChB,SIGNAL(stateChanged(int)),this,SLOT(CheckboxCheck(int)));
+
+    for (int i=0;i<goalkeepersCheckB.size();i++) {
+        connect(goalkeepersCheckB[i],&QCheckBox::stateChanged,this,
+                [i, this]{ CheckboxCheck(goalkeepersCheckB[i], DataBase::playerz[i]); });
+    }
+
+    for (int i=0;i<defendersCheckB.size();i++) {
+        connect(defendersCheckB[i],&QCheckBox::stateChanged,this,
+                [i, this]{ CheckboxCheck(defendersCheckB[i], DataBase::playerz[i + 15]); });
+    }
+
+    for (int i=0;i<midfieldersCheckB.size();i++) {
+        connect(midfieldersCheckB[i],&QCheckBox::stateChanged,this,
+                [i, this]{ CheckboxCheck(midfieldersCheckB[i], DataBase::playerz[i + 30]); });
+    }
+    for (int i=0;i<attackersCheckB.size();i++) {
+        connect(attackersCheckB[i],&QCheckBox::stateChanged,this,
+                [i, this]{ CheckboxCheck(attackersCheckB[i], DataBase::playerz[i + 45]); });
+    }
 }
 
-void SubWindow::on_Goalkeeper1_ChB_stateChanged(int arg1)
+void SubWindow::on_Ok_clicked()                                                                 // reakcja na przycisk OK
 {
-    if (ui->Goalkeeper1_ChB->isChecked())
+    try
     {
-       ChoosePlayer(31.2);
-       return;
+        if (money < 0){
+            throw 1;
+        }
+
+        else{
+            if(QMessageBox::question(this, "Are you sure?", "Do you want to start simulation?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+            {
+            ui->SelectTeamWidget->setVisible(false);
+            ui->MoneyLeft->setVisible(false);
+            ui->label->setVisible(false);
+            ui->label_2->setVisible(false);
+            ui->label_3->setVisible(false);
+            ui->label_4->setVisible(false);
+            ui->label_5->setVisible(false);
+            ui->label_6->setVisible(false);
+            ui->PlayerCounter->setVisible(false);            ui->ChosenTeam->setVisible(true);
+            ui->Simulate->setVisible(true);
+            ui->Simulate_2->setVisible(true);
+            ui->Simulate->setEnabled(false);
+            ui->Simulate_2->setEnabled(false);
+            ui->Ok->setVisible(false);
+            ui->ChosenCounter->setVisible(true);
+            ui->Matches->setVisible(true);
+            ui->frame->setVisible(false);
+            ui->frame_2->setVisible(false);
+            ui->frame_3->setVisible(false);
+            ui->defendersGBox->setVisible(false);
+            ui->groupBox->setVisible(true);
+            ui->Matches->setVisible(true);
+            ui->Matches_2->setVisible(true);
+            ui->Matches_3->setVisible(true);
+            ui->Matches_7->setVisible(true);
+            ui->Matches_8->setVisible(true);
+            ui->Matches_9->setVisible(true);
+            ui->Matches_10->setVisible(true);
+            ui->lineEdit->setVisible(false);
+
+            for (int i = 0; i < goalkeepersCheckB.size(); i++)
+            {
+                if (goalkeepersCheckB[i]->isChecked())
+                {
+                    DataBase::chosen.push_back(DataBase::playerz[i]);
+                }
+            }
+
+            for (int i = 0; i < defendersCheckB.size(); i++)
+            {
+                if (defendersCheckB[i]->isChecked())
+                {
+                    DataBase::chosen.push_back(DataBase::playerz[i + 15]);
+                }
+            }
+
+            for (int i = 0; i < midfieldersCheckB.size(); i++)
+            {
+                if (midfieldersCheckB[i]->isChecked())
+                {
+                    DataBase::chosen.push_back(DataBase::playerz[i + 30]);
+                }
+            }
+
+            for (int i = 0; i < attackersCheckB.size(); i++)
+            {
+                if (attackersCheckB[i]->isChecked())
+                {
+                    DataBase::chosen.push_back(DataBase::playerz[i + 45]);
+                }
+            }
+            SetPassiveBonus();
+            createChosenCheckboxes();
+            SelectingChosenTeam();
+            }
+        }
     }
-    else
+    catch(...)
     {
-        RejectPlayer(31.2);
-        return;
+         QMessageBox::warning(this, "Error", "The limit has been exceeded");
     }
 }
 
-void SubWindow::on_Goalkeeper2_ChB_stateChanged(int arg1)
+void SubWindow::on_Cancel_clicked()                                                                 // reakcja na przycisk Cancel
 {
-    if (ui->Goalkeeper2_ChB->isChecked())
-    {
-        ChoosePlayer(28.3);
-        return;
-    }
-    else
-    {
-        RejectPlayer(28.3);
-        return;
-    }
-}
+    for (int i = 0; i < ChosenTeam.size(); i++)
+        delete ChosenTeam[i];
 
-void SubWindow::on_Goalkeeper3_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper3_ChB->isChecked())
-    {
-        ChoosePlayer(24.8);
-        return;
-    }
-    else
-    {
-        RejectPlayer(24.8);
-        return;
-    }
-}
+    ChosenTeam.clear();
+    delete ui->ChosenTeam->layout();
 
-void SubWindow::on_Goalkeeper4_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper4_ChB->isChecked())
-    {
-        ChoosePlayer(20.2);
-        return;
-    }
-    else
-    {
-        RejectPlayer(20.2);
-        return;
-    }
-}
+    for (int i = 0; i < goalkeepersCheckB.size(); i++)
+        delete goalkeepersCheckB[i];
+    goalkeepersCheckB.clear();
+    delete ui->goalkeepersGBox->layout();
 
-void SubWindow::on_Goalkeeper5_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper5_ChB->isChecked())
-    {
-        ChoosePlayer(22.7);
-        return;
-    }
-    else
-    {
-        RejectPlayer(22.7);
-        return;
-    }
-}
+    for (int i = 0; i < defendersCheckB.size(); i++)
+        delete defendersCheckB[i];
+    defendersCheckB.clear();
+    delete ui->defendersGBox->layout();
 
-void SubWindow::on_Goalkeeper6_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper6_ChB->isChecked())
-        {
-            ChoosePlayer(24.2);
-            return;
-        }
-        else
-        {
-            RejectPlayer(24.2);
-            return;
-        }
-}
+    for (int i = 0; i < midfieldersCheckB.size(); i++)
+        delete midfieldersCheckB[i];
+    midfieldersCheckB.clear();
+    delete ui->midfieldersGB->layout();
 
-void SubWindow::on_Goalkeeper7_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper7_ChB->isChecked())
-        {
-            ChoosePlayer(22.0);
-            return;
-        }
-        else
-        {
-            RejectPlayer(22.0);
-            return;
-        }
-}
+    for (int i = 0; i < attackersCheckB.size(); i++)
+        delete attackersCheckB[i];
+    attackersCheckB.clear();
+    delete ui->attackersGB->layout();
 
-void SubWindow::on_Goalkeeper8_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper8_ChB->isChecked())
-        {
-            ChoosePlayer(27.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(27.3);
-            return;
-        }
-}
+    DataBase::Teams.erase(DataBase::Teams.begin(), DataBase::Teams.end());
+    DataBase::Teams.clear();
 
-void SubWindow::on_Goalkeeper9_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper9_ChB->isChecked())
-        {
-            ChoosePlayer(26.7);
-            return;
-        }
-        else
-        {
-            RejectPlayer(26.7);
-            return;
-        }
-}
 
-void SubWindow::on_Goalkeeper10_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper10_ChB->isChecked())
-        {
-            ChoosePlayer(23.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(23.8);
-            return;
-        }
-}
-
-void SubWindow::on_Goalkeeper11_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper11_ChB->isChecked())
-        {
-            ChoosePlayer(22.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(22.8);
-            return;
-        }
-}
-
-void SubWindow::on_Goalkeeper12_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper12_ChB->isChecked())
-        {
-            ChoosePlayer(24.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(24.8);
-            return;
-        }
-}
-
-void SubWindow::on_Goalkeeper13_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper13_ChB->isChecked())
-        {
-            ChoosePlayer(23.2);
-            return;
-        }
-        else
-        {
-            RejectPlayer(23.2);
-            return;
-        }
-}
-
-void SubWindow::on_Goalkeeper14_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper14_ChB->isChecked())
-        {
-            ChoosePlayer(25.2);
-            return;
-        }
-        else
-        {
-            RejectPlayer(25.2);
-            return;
-        }
-}
-
-void SubWindow::on_Goalkeeper15_ChB_stateChanged(int arg1)
-{
-    if (ui->Goalkeeper15_ChB->isChecked())
-        {
-            ChoosePlayer(22.2);
-            return;
-        }
-        else
-        {
-            RejectPlayer(22.2);
-            return;
-        }
-}
-
-void SubWindow::on_Defender1_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender1_ChB->isChecked())
-        {
-            ChoosePlayer(36.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(36.4);
-            return;
-        }
-}
-
-void SubWindow::on_Defender2_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender2_ChB->isChecked())
-        {
-            ChoosePlayer(32.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(32.3);
-            return;
-        }
-}
-
-void SubWindow::on_Defender3_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender3_ChB->isChecked())
-        {
-            ChoosePlayer(36.2);
-            return;
-        }
-        else
-        {
-            RejectPlayer(36.2);
-            return;
-        }
-}
-
-void SubWindow::on_Defender4_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender4_ChB->isChecked())
-        {
-            ChoosePlayer(30.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(30.3);
-            return;
-        }
-}
-
-void SubWindow::on_Defender5_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender5_ChB->isChecked())
-        {
-            ChoosePlayer(29.3);
-            return;
-        }
-        else
-        {
-            ChoosePlayer(29.3);
-            return;
-        }
-}
-
-void SubWindow::on_Defender6_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender6_ChB->isChecked())
-        {
-            ChoosePlayer(25.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(25.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender7_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender7_ChB->isChecked())
-        {
-            ChoosePlayer(22.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(22.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender8_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender8_ChB->isChecked())
-        {
-            ChoosePlayer(20.8);
-            return;
-        }
-        else
-        {
-            ChoosePlayer(20.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender9_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender9_ChB->isChecked())
-        {
-            ChoosePlayer(22.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(22.4);
-            return;
-        }
-}
-
-void SubWindow::on_Defender10_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender10_ChB->isChecked())
-        {
-            ChoosePlayer(23.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(23.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender11_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender11_ChB->isChecked())
-        {
-            ChoosePlayer(22.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(22.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender12_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender12_ChB->isChecked())
-        {
-            ChoosePlayer(29.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(29.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender13_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender13_ChB->isChecked())
-        {
-            ChoosePlayer(25.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(25.8);
-            return;
-        }
-}
-
-void SubWindow::on_Defender14_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender14_ChB->isChecked())
-        {
-            ChoosePlayer(19.7);
-            return;
-        }
-        else
-        {
-            RejectPlayer(19.7);
-            return;
-        }
-}
-
-void SubWindow::on_Defender15_ChB_stateChanged(int arg1)
-{
-    if (ui->Defender15_ChB->isChecked())
-        {
-            ChoosePlayer(20.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(20.8);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder1_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder1_ChB->isChecked())
-        {
-            ChoosePlayer(54.0);
-            return;
-        }
-        else
-        {
-            RejectPlayer(54.0);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder2_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder2_ChB->isChecked())
-        {
-            ChoosePlayer(43.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(43.4);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder3_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder3_ChB->isChecked())
-        {
-            ChoosePlayer(44.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(44.4);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder4_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder4_ChB->isChecked())
-        {
-            ChoosePlayer(41.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(41.4);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder5_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder5_ChB->isChecked())
-        {
-            ChoosePlayer(30.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(30.3);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder6_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder6_ChB->isChecked())
-        {
-            ChoosePlayer(27.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(27.8);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder7_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder7_ChB->isChecked())
-        {
-            ChoosePlayer(30.6);
-            return;
-        }
-        else
-        {
-            RejectPlayer(30.6);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder8_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder8_ChB->isChecked())
-        {
-            ChoosePlayer(38.9);
-            return;
-        }
-        else
-        {
-            RejectPlayer(38.9);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder9_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder9_ChB->isChecked())
-        {
-            ChoosePlayer(53.5);
-            return;
-        }
-        else
-        {
-            RejectPlayer(53.5);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder10_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder10_ChB->isChecked())
-        {
-            ChoosePlayer(26.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(26.8);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder11_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder11_ChB->isChecked())
-        {
-            ChoosePlayer(25.5);
-            return;
-        }
-        else
-        {
-            RejectPlayer(25.5);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder12_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder12_ChB->isChecked())
-        {
-            ChoosePlayer(39.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(39.3);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder13_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder13_ChB->isChecked())
-        {
-            ChoosePlayer(27.1);
-            return;
-        }
-        else
-        {
-            RejectPlayer(27.1);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder14_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder14_ChB->isChecked())
-        {
-            ChoosePlayer(27.6);
-            return;
-        }
-        else
-        {
-            RejectPlayer(27.6);
-            return;
-        }
-}
-
-void SubWindow::on_Midfielder15_ChB_stateChanged(int arg1)
-{
-    if (ui->Midfielder15_ChB->isChecked())
-        {
-            ChoosePlayer(32.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(32.3);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker1_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker1_ChB->isChecked())
-        {
-            ChoosePlayer(64.1);
-            return;
-        }
-        else
-        {
-            RejectPlayer(64.1);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker2_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker2_ChB->isChecked())
-        {
-            ChoosePlayer(59.6);
-            return;
-        }
-        else
-        {
-            RejectPlayer(59.6);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker3_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker3_ChB->isChecked())
-        {
-            ChoosePlayer(49.0);
-            return;
-        }
-        else
-        {
-            RejectPlayer(49.0);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker4_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker4_ChB->isChecked())
-        {
-            ChoosePlayer(57.6);
-            return;
-        }
-        else
-        {
-            RejectPlayer(57.6);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker5_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker5_ChB->isChecked())
-        {
-            ChoosePlayer(44.0);
-            return;
-        }
-        else
-        {
-            RejectPlayer(44.0);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker6_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker6_ChB->isChecked())
-        {
-            ChoosePlayer(36.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(36.4);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker7_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker7_ChB->isChecked())
-        {
-            ChoosePlayer(52.5);
-            return;
-        }
-        else
-        {
-            RejectPlayer(52.5);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker8_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker8_ChB->isChecked())
-        {
-            ChoosePlayer(51.5);
-            return;
-        }
-        else
-        {
-            RejectPlayer(51.5);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker9_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker9_ChB->isChecked())
-        {
-            ChoosePlayer(30.3);
-            return;
-        }
-        else
-        {
-            RejectPlayer(30.3);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker10_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker10_ChB->isChecked())
-        {
-            ChoosePlayer(26.7);
-            return;
-        }
-        else
-        {
-            RejectPlayer(26.7);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker11_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker11_ChB->isChecked())
-        {
-            ChoosePlayer(29.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(29.8);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker12_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker12_ChB->isChecked())
-        {
-            ChoosePlayer(33.8);
-            return;
-        }
-        else
-        {
-            RejectPlayer(33.8);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker13_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker13_ChB->isChecked())
-        {
-            ChoosePlayer(29.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(29.4);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker14_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker14_ChB->isChecked())
-        {
-            ChoosePlayer(53.5);
-            return;
-        }
-        else
-        {
-            RejectPlayer(53.5);
-            return;
-        }
-}
-
-void SubWindow::on_Attacker15_ChB_stateChanged(int arg1)
-{
-    if (ui->Attacker15_ChB->isChecked())
-        {
-            ChoosePlayer(33.4);
-            return;
-        }
-        else
-        {
-            RejectPlayer(33.4);
-            return;
-        }
-}
-
-void SubWindow::on_Ok_clicked()
-{
-    if (money < 0){
-        QMessageBox::information(this, "Error", "The limit has been exceeded");
-    }
-    else{
-        ui->SelectTeamWidget->setVisible(false);
-        ui->MoneyLeft->setVisible(false);
-        ui->label_3->setVisible(false);
-        ui->label_4->setVisible(false);
-        ui->PlayerCounter->setVisible(false);
-        ui->ChosenTeam->setVisible(true);
-        ui->Simulate->setVisible(true);
-        if (ui->Goalkeeper1_ChB->isChecked())
-        {
-            Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Goalkeeper", "David De Gea", 1.9, 28, "Spain"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper2_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Ederson"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper3_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Nick Pope"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper4_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Rob Elliot"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper5_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Asmir Begović"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper6_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Loris Karius"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper7_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Martin Dubravka"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper8_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Thibaut Courtois"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper9_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Petr Cech"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper10_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Lukasz Fabianski"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper11_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Matthew Ryan"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper12_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jordan Pickford"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper13_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jonas Lossl"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper14_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jack Butland"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Goalkeeper15_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Heurelho Gomes"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender1_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Cesar Azpilicueta"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender2_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Nicolas Otamendi"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender3_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Antonio Valencia"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender4_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jan Vertonghen"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender5_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Sead Kolasinac"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender6_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Nathan Ake"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender7_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "James Tarkowski"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender8_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Ragnar Klavan"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender9_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Cuco Martina"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender10_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jamaal Lascelles"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender11_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Mathias Jorgensen"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender12_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Hector Bellerin"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender13_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Alfie Mawson"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender14_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Brad Smith"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Defender15_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Marvin Zeegelaar"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder1_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Mohamed Salah"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder2_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Raheem Sterling"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder3_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Riyad Mahrez"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder4_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Heung Min Son"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder5_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Pascal Gross"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder6_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Abdoulaye Doucoure"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder7_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jesse Lingard"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder8_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Henrikh Mkhitaryan"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder9_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Eden Hazard"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder10_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Aaron Mooy"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder11_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Joe Allen"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder12_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Paul Pogba"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder13_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Oriol Romeu"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder14_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Ilkay Gundogan"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Midfielder15_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Xherdan Shaqiri"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker1_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Harry Kane"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker2_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Sergio Aguero"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker3_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Roberto Firmino"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker4_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Romelu Lukaku"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker5_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jamie Vardy"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker6_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Wayne Rooney"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker7_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Alvaro Morata"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker8_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Alexandre Lacazette"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker9_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Callum Wilson"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker10_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Jay Rodriguez"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker11_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Glenn Murray"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker12_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Chicharito"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker13_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Steve Mounie"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker14_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "P. E. Aubameyang"};
-            //Match::players.push_back(p);
-        }
-        if (ui->Attacker15_ChB->isChecked())
-        {
-            //Player p = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Islam Slimani"};
-            //Match::players.push_back(p);
-        }
-
-    }
-     //Player k;
-     //k = Match::players.back();
-     //ui->ChosenTeam1->setText(k.position);
-     //Match::players.pop_back();
-     /*
-     k = Match::players.back();
-     ui->ChosenTeam2->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam3->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam4->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam5->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam6->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam7->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam8->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam9->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam10->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam11->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam12->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam13->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam14->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam15->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam16->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam17->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam18->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam19->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam20->setText(k.position);
-     Match::players.pop_back();
-     k = Match::players.back();
-     ui->ChosenTeam21->setText(k.position);
-     Match::players.pop_back();
-     */
-
-}
-
-void SubWindow::on_Cancel_clicked()
-{
     this->close(); 
 }
 
-void SubWindow::on_Prev_clicked()
+void SubWindow::on_Prev_clicked()                                                                   // reakcja na przycisk Prev
 {
     if (ui->SelectTeamWidget->isHidden())
     {
@@ -1413,343 +369,792 @@ void SubWindow::on_Prev_clicked()
         ui->PlayerCounter->setVisible(true);
         ui->ChosenTeam->setVisible(false);
         ui->Simulate->setVisible(false);
+        ui->Simulate_2->setVisible(false);
+        ui->Ok->setVisible(true);
+        ui->ChosenCounter->setVisible(false);
+        ui->groupBox->setVisible(false);
+        ui->defendersGBox->setVisible(true);
+
     }
     else
         this->close();
 }
 
-void SubWindow::on_ChosenTeam1_stateChanged(int arg1)
+void SubWindow::CheckboxCheck2(QCheckBox* checkB, PlayerInfo& player)                               // wybieranie zawodników do gry
 {
-    if (ui->ChosenTeam1->isChecked())
+    if (checkB->isChecked())
     {
         counter2++;
         ui->ChosenCounter->display(counter2);
-        return;
     }
     else
     {
         counter2--;
         ui->ChosenCounter->display(counter2);
-        return;
+    }
+    mainWindowRef.setPlayerLabel(player);
+
+    if (counter2 == 11){
+        ui->Simulate->setEnabled(true);
+        ui->Simulate_2->setEnabled(true);
+    }
+    else {
+        ui->Simulate->setEnabled(false);
+        ui->Simulate_2->setEnabled(false);
     }
 }
 
-void SubWindow::on_ChosenTeam2_stateChanged(int arg1)
-{
-    if (ui->ChosenTeam2->isChecked())
-    {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+void SubWindow::createChosenCheckboxes(){                                                           // tworzenie checkboxów wybranych zawodników
+
+    QVBoxLayout *vbox5 = new QVBoxLayout;
+    for (int i = 0; i < ChosenTeam.size(); i++)
+        delete ChosenTeam[i];
+
+    ChosenTeam.clear();
+    delete ui->ChosenTeam->layout();
+    int xy = 10;
+    QFont newFont("Gill Sans MT", 10);
+
+    for (int i =0;i<21;i++){
+        QString value = "";
+        value.setNum(DataBase::chosen[i].price, 'g', 3);
+        QString text = DataBase::chosen[i].name + " (" + value + "$)";
+        QCheckBox *checkB = new QCheckBox(text);
+        checkB->setText(text);
+        vbox5->addWidget(checkB);
+        ChosenTeam.push_back(checkB);
+        checkB->setFont(newFont);
+        xy += 20;
     }
-    else
-    {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+
+    vbox5->addStretch(1);
+    ui->ChosenTeam->setLayout(vbox5);
+
+}
+
+void SubWindow::SelectingChosenTeam()                                                               // powiązanie checkboxów wybranych zawodników z funkcjami
+{
+    for (int i=0;i<ChosenTeam.size();i++) {
+        connect(ChosenTeam[i],&QCheckBox::stateChanged,this,
+                [i, this]{ CheckboxCheck2(ChosenTeam[i], DataBase::chosen[i]); });
     }
 }
 
-void SubWindow::on_ChosenTeam3_stateChanged(int arg1)
+void SubWindow::on_actionExit_triggered()
 {
-    if (ui->ChosenTeam3->isChecked())
+    this->close();
+}
+
+void SubWindow::on_actionHow_to_Play_triggered()                                                    // reakcja na opcę How to Play
+{
+    QMessageBox::information(this, "How to Play?", "Choose your team and try to win the league!");
+}
+
+void SubWindow::on_actionAbout_triggered()                                                          // reakcja na opcję About
+{
+    QMessageBox::information(this, "About", "Author: Pawel Wawszczyk\n\nAll rights reserved\n\nGliwice, 2018");
+}
+
+void SubWindow::on_actionEasy_triggered()                                                           // reakcja na wybór poziomy trudności łatwego
+{
+    money = 900;
+    ui->MoneyLeft->display(money);
+    ui->goalkeepersGBox->setEnabled(true);
+    ui->defendersGBox->setEnabled(true);
+    ui->midfieldersGB->setEnabled(true);
+    ui->attackersGB->setEnabled(true);
+    ui->menuDifficulty_level->setEnabled(false);
+
+}
+
+void SubWindow::on_actionMedium_triggered()                                                         // reakcja na wybór poziomy trudności średniego
+{
+    money = 800;
+    ui->MoneyLeft->display(money);
+    ui->goalkeepersGBox->setEnabled(true);
+    ui->defendersGBox->setEnabled(true);
+    ui->midfieldersGB->setEnabled(true);
+    ui->attackersGB->setEnabled(true);
+    ui->menuDifficulty_level->setEnabled(false);
+}
+
+void SubWindow::on_actionHard_triggered()                                                           // reakcja na wybór poziomy trudności trudnego
+{
+    money = 700;
+    ui->MoneyLeft->display(money);
+    ui->goalkeepersGBox->setEnabled(true);
+    ui->defendersGBox->setEnabled(true);
+    ui->midfieldersGB->setEnabled(true);
+    ui->attackersGB->setEnabled(true);
+    ui->menuDifficulty_level->setEnabled(false);
+}
+
+void SubWindow::on_Simulate_clicked()                                                               // reakcja na przycisk Simulate
+{
+    mainWindowRef.setTable();
+    simulation s(*this, mainWindowRef);
+    ui->RoundCounter->setVisible(true);
+    if(counter2 == 11)
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+        ui->Prev->setVisible(false);
+        ui->Simulate->setEnabled(false);
+        ui->Simulate_2->setEnabled(false);
+        for (int i = 0; i < ChosenTeam.size(); i++)
+        {
+            if (ChosenTeam[i]->isChecked())
+            {
+                DataBase::InGamePlayers.push_back(DataBase::chosen[i]);
+            }
+        }
+        s.MakeSeason();
     }
-    else
+
+}
+
+void SubWindow::on_Simulate_2_clicked()                                                             // reakcja na przycisk Simulate Round
+{
+    mainWindowRef.setTable();
+    simulationround s(*this, mainWindowRef);
+    ui->RoundCounter->setVisible(true);
+    if(counter2 == 11)
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+        ui->Prev->setVisible(false);
+        ui->Simulate->setEnabled(false);
+        ui->Simulate_2->setEnabled(false);
+        if (roundcounter < 38)
+        {
+            for (int i = 0; i < ChosenTeam.size(); i++)
+            {
+                if (ChosenTeam[i]->isChecked())
+                {
+                    DataBase::InGamePlayers.push_back(DataBase::chosen[i]);
+                }
+            }
+
+            s.MakeSeason(j);
+            ui->Simulate_2->setEnabled(true);
+            roundcounter++;
+            j++;
+            if (j == 19)
+                j = 0;
+            ui->RoundCounter->display(roundcounter);
+        }
+        else
+        {
+            if (DataBase::Clone[0].name == "My Team")
+            {
+                WinnerMessage();
+            }
+            SetWinners();
+            Player p;
+            p.SetAge();
+            SetVisibleRetry(true);
+        }
+
     }
 }
 
-void SubWindow::on_ChosenTeam4_stateChanged(int arg1)
+// wyświetlanie tekstów dotyczących wyników meczów
+
+void SubWindow::setText1(QString tex1)
 {
-    if (ui->ChosenTeam4->isChecked())
+    ui->Matches_4->setText(tex1);
+}
+
+void SubWindow::setText2(QString tex2)
+{
+    ui->Matches_5->setText(tex2);
+}
+
+void SubWindow::setText3(QString tex3)
+{
+    ui->Matches_6->setText(tex3);
+}
+
+void SubWindow::IncrementRound(int counter)                                                     // inkrementacja rundy sezonu
+{
+    ui->RoundCounter->display(counter);
+}
+
+void SubWindow::SetWinners()                                                                    // wyświetlanie wygranych i spadkowiczów
+{
+    QFont newFont("Gill Sans MT", 12, QFont::Bold);
+    QString winners = "Champions: " + DataBase::Clone[0].name;
+    ui->Matches_7->setFont(newFont);
+    ui->Matches_7->setText(winners);    
+    winners = "Runner-Up: " + DataBase::Clone[1].name + ".";
+    ui->Matches_8->setFont(newFont);
+    ui->Matches_8->setText(winners);
+    winners = "Third place: " + DataBase::Clone[2].name + ".";
+    ui->Matches_9->setFont(newFont);
+    ui->Matches_9->setText(winners);
+    winners = "Relegated:\n\n" + DataBase::Clone[17].name + "\n\n" + DataBase::Clone[18].name + "\n\n" + DataBase::Clone[19].name;
+    ui->Matches_10->setFont(newFont);
+    ui->Matches_10->setText(winners);
+
+}
+
+void SubWindow::SetPassiveBonus()                                                               // ustawienie bonusów pasywnych
+{
+    if(ui->checkBox->isChecked())
+        DataBase::Teams[15].power *= 1.2;
+    if(ui->checkBox_2->isChecked())
+        DataBase::Teams[15].power *= 1.1;
+    if(ui->checkBox_3->isChecked())
+        DataBase::Teams[15].power *= 1.07;
+    if(ui->checkBox_4->isChecked())
+        DataBase::Teams[15].power *= 1.14;
+    if(ui->checkBox_5->isChecked())
+        DataBase::Teams[15].power *= 1.12;
+    if(ui->checkBox_6->isChecked())
+        DataBase::Teams[15].power *= 1.06;
+    if(ui->checkBox_25->isChecked())
+        DataBase::Teams[15].power *= 1.03;
+    if(ui->checkBox_7->isChecked())
+        DataBase::Teams[15].power *= 1.02;
+    if(ui->checkBox_8->isChecked())
+        DataBase::Teams[15].power *= 1.01;
+    if(ui->checkBox_9->isChecked())
+        DataBase::Teams[15].power *= 1.02;
+    if(ui->checkBox_10->isChecked())
+        DataBase::Teams[15].power *= 1.01;
+    if(ui->checkBox_11->isChecked())
+        DataBase::Teams[15].power *= 1.04;
+    if(ui->checkBox_12->isChecked())
+        DataBase::Teams[15].power *= 1.02;
+    if(ui->checkBox_13->isChecked())
+        DataBase::Teams[15].power *= 1.06;
+    if(ui->checkBox_16->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.1;
+        }
     }
-    else
+    if(ui->checkBox_17->isChecked())
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.09;
+        }
+    }
+    if(ui->checkBox_18->isChecked())
+    {
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.08;
+        }
+    }
+    if(ui->checkBox_19->isChecked())
+    {
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.07;
+        }
+    }
+    if(ui->checkBox_20->isChecked())
+    {
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.06;
+        }
+    }
+    if(ui->checkBox_21->isChecked())
+    {
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.05;
+        }
+    }
+    if(ui->checkBox_22->isChecked())
+    {
+        for (int i = 0; i < DataBase::chosen.size(); i++)
+        {
+            DataBase::chosen[i].fitness *= 1.04;
+        }
+    }
+    if(ui->checkBox_64->isChecked())
+    {
+        DataBase::Teams[15].power *= 1.2;
+    }
+    if(ui->checkBox_22->isChecked())
+    {
+        DataBase::Teams[15].power *= 1.2;
+    }
+    if(ui->checkBox_22->isChecked())
+    {
+        DataBase::Teams[15].power *= 1.4;
     }
 }
 
-void SubWindow::on_ChosenTeam5_stateChanged(int arg1)
+// reakcje na checkboxy dotyczące bonusów pasywnych
+
+void SubWindow::on_checkBox_clicked()
 {
-    if (ui->ChosenTeam5->isChecked())
+    if(ui->checkBox->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 52;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 52;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam6_stateChanged(int arg1)
+void SubWindow::on_checkBox_2_clicked()
 {
-    if (ui->ChosenTeam6->isChecked())
+    if(ui->checkBox_2->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 40;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 40;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam7_stateChanged(int arg1)
+void SubWindow::on_checkBox_3_clicked()
 {
-    if (ui->ChosenTeam7->isChecked())
+    if(ui->checkBox_3->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 37;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 37;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam8_stateChanged(int arg1)
+void SubWindow::on_checkBox_4_clicked()
 {
-    if (ui->ChosenTeam8->isChecked())
+    if(ui->checkBox_4->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 46;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 46;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam9_stateChanged(int arg1)
+void SubWindow::on_checkBox_5_clicked()
 {
-    if (ui->ChosenTeam9->isChecked())
+    if(ui->checkBox_5->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 29;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 29;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam10_stateChanged(int arg1)
+void SubWindow::on_checkBox_6_clicked()
 {
-    if (ui->ChosenTeam10->isChecked())
+    if(ui->checkBox_6->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 20;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 20;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam11_stateChanged(int arg1)
+void SubWindow::on_checkBox_25_clicked()
 {
-    if (ui->ChosenTeam11->isChecked())
+    if(ui->checkBox_25->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 23;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 23;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam12_stateChanged(int arg1)
+void SubWindow::on_checkBox_7_clicked()
 {
-    if (ui->ChosenTeam12->isChecked())
+    if(ui->checkBox_7->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 11;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 11;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam13_stateChanged(int arg1)
+void SubWindow::on_checkBox_8_clicked()
 {
-    if (ui->ChosenTeam13->isChecked())
+    if(ui->checkBox_8->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 9;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 9;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam14_stateChanged(int arg1)
+void SubWindow::on_checkBox_9_clicked()
 {
-    if (ui->ChosenTeam14->isChecked())
+    if(ui->checkBox_9->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 10;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 10;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam15_stateChanged(int arg1)
+void SubWindow::on_checkBox_10_clicked()
 {
-    if (ui->ChosenTeam15->isChecked())
+    if(ui->checkBox_10->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 12;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 12;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam16_stateChanged(int arg1)
+void SubWindow::on_checkBox_11_clicked()
 {
-    if (ui->ChosenTeam16->isChecked())
+    if(ui->checkBox_11->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 14;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 14;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam17_stateChanged(int arg1)
+void SubWindow::on_checkBox_12_clicked()
 {
-    if (ui->ChosenTeam17->isChecked())
+    if(ui->checkBox_12->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 8;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 8;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam18_stateChanged(int arg1)
+void SubWindow::on_checkBox_13_clicked()
 {
-    if (ui->ChosenTeam18->isChecked())
+    if(ui->checkBox_13->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 10;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 10;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam19_stateChanged(int arg1)
+
+
+void SubWindow::on_checkBox_16_clicked()
 {
-    if (ui->ChosenTeam19->isChecked())
+    if(ui->checkBox_16->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 12;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 12;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam20_stateChanged(int arg1)
+void SubWindow::on_checkBox_17_clicked()
 {
-    if (ui->ChosenTeam20->isChecked())
+    if(ui->checkBox_16->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 11;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 11;
+    ui->MoneyLeft->display(money);
     }
 }
 
-void SubWindow::on_ChosenTeam21_stateChanged(int arg1)
+void SubWindow::on_checkBox_18_clicked()
 {
-    if (ui->ChosenTeam21->isChecked())
+    if(ui->checkBox_16->isChecked())
     {
-        counter2++;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money -= 10;
+    ui->MoneyLeft->display(money);
     }
     else
     {
-        counter2--;
-        ui->ChosenCounter->display(counter2);
-        return;
+    money += 10;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_19_clicked()
+{
+    if(ui->checkBox_16->isChecked())
+    {
+    money -= 9;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 9;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_20_clicked()
+{
+    if(ui->checkBox_16->isChecked())
+    {
+    money -= 8;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 8;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_21_clicked()
+{
+    if(ui->checkBox_16->isChecked())
+    {
+    money -= 7;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 7;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_22_clicked()
+{
+    if(ui->checkBox_16->isChecked())
+    {
+    money -= 6;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 6;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_64_clicked()
+{
+    if(ui->checkBox_64->isChecked())
+    {
+    money -= 40;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 40;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_65_clicked()
+{
+    if(ui->checkBox_65->isChecked())
+    {
+    money -= 40;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 40;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::on_checkBox_66_clicked()
+{
+    if(ui->checkBox_66->isChecked())
+    {
+    money -= 50;
+    ui->MoneyLeft->display(money);
+    }
+    else
+    {
+    money += 50;
+    ui->MoneyLeft->display(money);
+    }
+}
+
+void SubWindow::WinnerMessage()
+{
+    QMessageBox::information(this, "Winner!!!", "Congratulations! You won the game! \nIf you want, you can try again." );
+}
+
+void SubWindow::on_Retry_clicked()
+{
+    ui->SelectTeamWidget->setVisible(true);
+    ui->MoneyLeft->setVisible(true);
+    ui->label->setVisible(true);
+    ui->label_2->setVisible(true);
+    ui->label_3->setVisible(true);
+    ui->label_4->setVisible(true);
+    ui->label_5->setVisible(true);
+    ui->label_6->setVisible(true);
+    ui->PlayerCounter->setVisible(true);
+    ui->ChosenTeam->setVisible(false);
+    ui->Simulate->setVisible(false);
+    ui->Simulate->setEnabled(true);
+    ui->Simulate_2->setVisible(false);
+    ui->Simulate_2->setEnabled(true);
+    ui->Ok->setVisible(true);
+    ui->ChosenCounter->setVisible(false);
+    ui->Matches->setVisible(false);
+    ui->frame->setVisible(true);
+    ui->frame_2->setVisible(true);
+    ui->frame_3->setVisible(true);
+    ui->defendersGBox->setVisible(true);
+    ui->groupBox->setVisible(false);
+    ui->Matches->setVisible(false);
+    ui->Matches_2->setVisible(false);
+    ui->Matches_3->setVisible(false);
+    ui->Matches_7->setVisible(false);
+    ui->Matches_8->setVisible(false);
+    ui->Matches_9->setVisible(false);
+    ui->Matches_10->setVisible(false);
+    ui->RoundCounter->setVisible(false);
+    ui->Retry->setVisible(false);
+    mainWindowRef.setTableVisible(false);
+
+    DataBase::Teams.erase(DataBase::Teams.begin(), DataBase::Teams.end());
+    DataBase::Clone.erase(DataBase::Clone.begin(), DataBase::Clone.end());
+    DataBase::playerz.erase(DataBase::playerz.begin(), DataBase::playerz.end());
+    DataBase::chosen.erase(DataBase::chosen.begin(), DataBase::chosen.end());
+    DataBase::InGamePlayers.erase(DataBase::InGamePlayers.begin(), DataBase::InGamePlayers.end());
+    ChosenTeam.erase(ChosenTeam.begin(), ChosenTeam.end());
+    DataBase::loadDataBase();
+    ui->MoneyLeft->display(money);
+    ui->menuDifficulty_level->setEnabled(true);
+    ui->goalkeepersGBox->setEnabled(false);
+    ui->defendersGBox->setEnabled(false);
+    ui->midfieldersGB->setEnabled(false);
+    ui->attackersGB->setEnabled(false);
+    for (int i=0;i<goalkeepersCheckB.size();i++)
+    {
+        goalkeepersCheckB[i]->setChecked(false);
+    }
+    for (int i=0;i<defendersCheckB.size();i++)
+    {
+        defendersCheckB[i]->setChecked(false);
+    }
+    for (int i=0;i<midfieldersCheckB.size();i++)
+    {
+        midfieldersCheckB[i]->setChecked(false);
+    }
+    for (int i=0;i<attackersCheckB.size();i++)
+    {
+        attackersCheckB[i]->setChecked(false);
+    }
+    ui->checkBox_2->setChecked(false);
+    ui->checkBox_3->setChecked(false);
+    ui->checkBox_4->setChecked(false);
+    ui->checkBox_5->setChecked(false);
+    ui->checkBox_6->setChecked(false);
+    ui->checkBox_25->setChecked(false);
+    ui->checkBox_7->setChecked(false);
+    ui->checkBox_8->setChecked(false);
+    ui->checkBox_9->setChecked(false);
+    ui->checkBox_10->setChecked(false);
+    ui->checkBox_11->setChecked(false);
+    ui->checkBox_12->setChecked(false);
+    ui->checkBox_13->setChecked(false);
+    ui->checkBox_16->setChecked(false);
+    ui->checkBox_17->setChecked(false);
+    ui->checkBox_18->setChecked(false);
+    ui->checkBox_19->setChecked(false);
+    ui->checkBox_20->setChecked(false);
+    ui->checkBox_21->setChecked(false);
+    ui->checkBox_22->setChecked(false);
+    ui->checkBox_64->setChecked(false);
+    ui->checkBox_65->setChecked(false);
+    ui->checkBox_66->setChecked(false);
+    ui->Matches->setText("");
+    ui->Matches_2->setText("");
+    ui->Matches_3->setText("");
+    ui->Matches_4->setText("");
+    ui->Matches_5->setText("");
+    ui->Matches_6->setText("");
+    ui->Matches_7->setText("");
+    ui->Matches_8->setText("");
+    ui->Matches_9->setText("");
+    ui->Matches_10->setText("");
+    ui->lineEdit->setVisible(true);
+    roundcounter = 0;
+    ui->RoundCounter->display(roundcounter );
+    counter2 = 0;
+    ui->ChosenCounter->display(counter);
+    j = 0;
+}
+
+void SubWindow::SetVisibleRetry(bool vis)
+{
+    ui->Retry->setVisible(vis);
+}
+
+void SubWindow::on_lineEdit_textEdited(const QString &arg1)
+{
+    std::regex pattern = std::regex("[A-Za-z0-9]+");
+    string tex = ui->lineEdit->text().toStdString();
+    if(regex_match(tex, pattern))
+    {
+        DataBase::Teams[15].name = ui->lineEdit->text();
+    }
+    else
+    {
+        QMessageBox::information(this, "Warning", "Wrong name! Use only letters!");
+        std::string text = ui->lineEdit->text().toStdString();
+        std::string textChanged = text.substr(0,text.size() - 1);
+        ui->lineEdit->setText(QString::fromStdString(textChanged));
     }
 }

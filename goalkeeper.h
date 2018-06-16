@@ -3,10 +3,11 @@
 
 #include <string>
 #include <vector>
+#include "player.h"
 
 using namespace std;
 
-class Goalkeeper
+class Goalkeeper : public Player
 {
     int reflex;
     int parades;

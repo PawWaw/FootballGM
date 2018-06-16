@@ -1,9 +1,9 @@
-#include "mainwindow.h"
 #include "subwindow.h"
 #include "goalkeeper.h"
 #include "match.h"
 #include "player.h"
 #include <QApplication>
+
 
 
 //vector<Player> Match::players;
@@ -12,13 +12,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    SubWindow b;
     MainWindow c;
+    SubWindow b(c);
 
     c.show();
     b.show();
-    b.setGeometry(260,260,0,0);
-    c.setGeometry(1260,260,0,0);
+    b.setGeometry(0,100,0,0);
+    c.setGeometry(1000,100,0,0);
+    c.setTableVisible(false);
     b.setVisibleGoalkeeper(true);
     b.setVisibleDefender(true);
     b.setVisibleMidfielder(true);
@@ -27,6 +28,11 @@ int main(int argc, char *argv[])
     b.setColorGoalkeeper();
     b.setVisibleSimulateButton(false);
     b.setOKUnclickable();
+    b.setVisibleChosenCounter(false);
+    b.setDisabled();
+    b.DifficultyMessage();
+    b.SetVisibleRetry(false);
+
 
     return a.exec();
 }

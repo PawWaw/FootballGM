@@ -10,7 +10,7 @@ class Match
 {
 public:
     Match();
-    static vector<Player> players;
+    static vector<Human> playerss;
     void FillMatch();
 };
 

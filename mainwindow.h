@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+struct PlayerInfo;
+
 namespace Ui {
 class MainWindow;
 }
@@ -11,12 +13,20 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Ui::MainWindow *ui;
+
 public:
+    void setPlayerLabel(PlayerInfo& player);
+    void setTable();
+    void setTableVisible(bool vis);
+    void printtable();
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private:
-    Ui::MainWindow *ui;
+private slots:
+    void on_actionExit_2_triggered();
+    void on_actionAbout_triggered();
 };
 
 #endif // MAINWINDOW_H

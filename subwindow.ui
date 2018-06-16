@@ -30,7 +30,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Gill Sans MT</family>
+    <family>Consolas</family>
    </font>
   </property>
   <property name="windowTitle">
@@ -45,33 +45,11 @@ alternate-background-color: rgb(20, 0, 0);
    <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="Next">
-    <property name="geometry">
-     <rect>
-      <x>884</x>
-      <y>482</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Gill Sans MT</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Next</string>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="Cancel">
     <property name="geometry">
      <rect>
-      <x>884</x>
-      <y>402</y>
+      <x>880</x>
+      <y>470</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -92,8 +70,8 @@ alternate-background-color: rgb(20, 0, 0);
    <widget class="QPushButton" name="Prev">
     <property name="geometry">
      <rect>
-      <x>884</x>
-      <y>442</y>
+      <x>880</x>
+      <y>510</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -109,22 +87,6 @@ alternate-background-color: rgb(20, 0, 0);
     </property>
     <property name="default">
      <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QWidget" name="GoalKeeperWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>160</y>
-      <width>121</width>
-      <height>381</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Gill Sans MT</family>
-      <pointsize>10</pointsize>
-     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="MoneyLeft">
@@ -161,7 +123,7 @@ alternate-background-color: rgb(20, 0, 0);
      <enum>QLCDNumber::Flat</enum>
     </property>
     <property name="intValue" stdset="0">
-     <number>900</number>
+     <number>750</number>
     </property>
    </widget>
    <widget class="QTabWidget" name="SelectTeamWidget">
@@ -172,7 +134,7 @@ alternate-background-color: rgb(20, 0, 0);
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>781</width>
+      <width>791</width>
       <height>561</height>
      </rect>
     </property>
@@ -186,7 +148,7 @@ alternate-background-color: rgb(20, 0, 0);
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -198,347 +160,13 @@ alternate-background-color: rgb(20, 0, 0);
      <attribute name="title">
       <string>Players</string>
      </attribute>
-     <widget class="QGroupBox" name="Goalkeepers">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>171</width>
-        <height>441</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Gill Sans MT</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">text-color: white;</string>
-      </property>
-      <property name="title">
-       <string>Goalkeepers</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-      <widget class="QCheckBox" name="Goalkeeper1_ChB">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>David De Gea (31.2$)</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper2_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>45</y>
-         <width>131</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Ederson (28.3$)</string>
-       </property>
-       <property name="tristate">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper3_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>131</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Nick Pope (24.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper4_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>95</y>
-         <width>131</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Rob Elliot (20.2$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper5_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>120</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Asmir Begović (22.7$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper6_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>145</y>
-         <width>131</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Loris Karius (24.2$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper7_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>170</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Martin Dubravka (22$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper8_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>195</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Thibaut Courtois (27.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper9_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>220</y>
-         <width>131</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Petr Cech (26.7$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper10_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>245</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Lukasz Fabianski (23.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper11_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>270</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Matthew Ryan (22.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper12_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>295</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Jordan Pickford (24.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper13_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>320</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Jonas Lossl (23.2$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper14_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>345</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Jack Butland (25.2$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Goalkeeper15_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>370</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Heurelho Gomes (22.2$)</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="DefendersWidget">
+     <widget class="QGroupBox" name="defendersGBox">
       <property name="geometry">
        <rect>
         <x>210</x>
         <y>80</y>
-        <width>171</width>
-        <height>441</height>
+        <width>181</width>
+        <height>440</height>
        </rect>
       </property>
       <property name="font">
@@ -559,299 +187,14 @@ alternate-background-color: rgb(20, 0, 0);
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QCheckBox" name="Defender1_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Cesar Azpilicueta (36.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender2_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>45</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Nicolas Otamendi (32.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender3_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Antonio Valencia (36.2$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender4_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>95</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Jan Vertonghen (30.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender5_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>120</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Sead Kolasinac (29.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender6_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>145</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Nathan Ake (25.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender7_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>170</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>James Tarkowski (22.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender8_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>195</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Ragnar Klavan (20.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender9_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>220</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Cuco Martina (22.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender10_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>245</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Jamaal Lascelles (23.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender11_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>270</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Mathias Jorgensen (22.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender12_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>295</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Hector Bellerin (29.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender13_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>320</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Alfie Mawson (25.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender14_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>345</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Brad Smith (19.7$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Defender15_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>370</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Marvin Zeegelaar (20.8$)</string>
-       </property>
-      </widget>
      </widget>
-     <widget class="QGroupBox" name="MidfieldersWidget">
+     <widget class="QGroupBox" name="midfieldersGB">
       <property name="geometry">
        <rect>
         <x>410</x>
         <y>80</y>
-        <width>171</width>
-        <height>441</height>
+        <width>181</width>
+        <height>440</height>
        </rect>
       </property>
       <property name="font">
@@ -869,299 +212,14 @@ alternate-background-color: rgb(20, 0, 0);
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QCheckBox" name="Midfielder1_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Mohamed Salah (54.0$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder2_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>45</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Raheem Sterling (43.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder3_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Riyad Mahrez (44.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder4_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>95</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Heung Min Son (41.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder5_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>120</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Pascal Gross (30.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder6_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>145</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>A. Doucouré (27.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder7_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>170</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Jesse Lingard (30.6$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder8_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>195</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>H.Mkhitaryan (38.9$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder9_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>220</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Eden Hazard (53.5$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder10_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>245</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Aaron Mooy (26.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder11_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>270</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Joe Allen (25.5$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder12_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>295</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Paul Pogba (39.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder13_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>320</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Oriol Romeu (27.1$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder14_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>345</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Ilkay Gundogan (27.6$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Midfielder15_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>370</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Xherdan Shaqiri (32.3$)</string>
-       </property>
-      </widget>
      </widget>
-     <widget class="QGroupBox" name="AttackersWidget">
+     <widget class="QGroupBox" name="attackersGB">
       <property name="geometry">
        <rect>
-        <x>610</x>
+        <x>609</x>
         <y>80</y>
-        <width>171</width>
-        <height>451</height>
+        <width>181</width>
+        <height>440</height>
        </rect>
       </property>
       <property name="font">
@@ -1185,337 +243,6 @@ alternate-background-color: rgb(20, 0, 0);
       <property name="flat">
        <bool>true</bool>
       </property>
-      <widget class="QCheckBox" name="Attacker1_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>141</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">unchecked-color:rgb(255, 255, 255);
-checked-color:rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Harry Kane (64.1$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker2_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>45</y>
-         <width>151</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Sergio Aguero (59.6$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker3_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Roberto Firmino (49.0$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker4_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>95</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Romelu Lukaku (57.6$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker5_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>120</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Jamie Vardy (44.0$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker6_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>145</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Wayne Rooney (36.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker7_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>170</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Alvaro Morata (52.5$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker8_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>195</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>A. Lacazette (51.5$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker9_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>220</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Callum Wilson (30.3$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker10_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>245</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Jay Rodriguez (26.7$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker11_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>270</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Glenn Murray (29.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker12_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>295</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Chicharito (33.8$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker13_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>320</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Steve Mounie (29.4$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker14_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>345</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>P. E. Aubameyang (53.5$)</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="Attacker15_ChB">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>370</y>
-         <width>161</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">text-color: white;</string>
-       </property>
-       <property name="text">
-        <string>Islam Slimani (33.4$)</string>
-       </property>
-      </widget>
      </widget>
      <widget class="QFrame" name="frame">
       <property name="geometry">
@@ -1600,6 +327,36 @@ text-color: white;</string>
        </property>
       </widget>
      </widget>
+     <widget class="QGroupBox" name="goalkeepersGBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>181</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Gill Sans MT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>Goalkeepers</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>midfieldersGB</zorder>
+     <zorder>defendersGBox</zorder>
+     <zorder>frame</zorder>
+     <zorder>goalkeepersGBox</zorder>
+     <zorder>attackersGB</zorder>
     </widget>
     <widget class="QWidget" name="Staff">
      <property name="styleSheet">
@@ -1613,7 +370,7 @@ text-color: white;</string>
        <rect>
         <x>300</x>
         <y>100</y>
-        <width>120</width>
+        <width>161</width>
         <height>360</height>
        </rect>
       </property>
@@ -1639,17 +396,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>20</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Steve Bould (11$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_8">
@@ -1657,17 +415,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>60</y>
-         <width>100</width>
+         <width>121</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Mikel Arteta (9$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_9">
@@ -1675,17 +434,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>100</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Juan Vargas (10$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_10">
@@ -1693,17 +453,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>140</y>
-         <width>100</width>
+         <width>151</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Quique Flores (12$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_11">
@@ -1711,17 +472,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>180</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Marco Silva (14$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_12">
@@ -1729,17 +491,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>220</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Tony Pulis (8$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_13">
@@ -1747,53 +510,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>260</y>
-         <width>100</width>
+         <width>121</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_14">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>300</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_15">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
+        <string>Steve Bruce (10$)</string>
        </property>
       </widget>
      </widget>
@@ -1802,7 +530,7 @@ text-color: white;</string>
        <rect>
         <x>590</x>
         <y>100</y>
-        <width>120</width>
+        <width>161</width>
         <height>360</height>
        </rect>
       </property>
@@ -1825,17 +553,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>20</y>
-         <width>100</width>
+         <width>141</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Eva Carneiro (12$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_17">
@@ -1843,17 +572,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>60</y>
-         <width>100</width>
+         <width>171</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Edward Smith (11$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_18">
@@ -1861,17 +591,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>100</y>
-         <width>100</width>
+         <width>181</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Andre Gonzalez (10$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_19">
@@ -1879,17 +610,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>140</y>
-         <width>100</width>
+         <width>171</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Jesus Vallejo (9$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_20">
@@ -1897,17 +629,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>180</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Tom Earnes (8$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_21">
@@ -1915,17 +648,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>220</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Mark Pugh (7$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_22">
@@ -1933,180 +667,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>260</y>
-         <width>100</width>
+         <width>151</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_23">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>300</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_24">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="geometry">
-        <rect>
-         <x>850</x>
-         <y>500</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Next</string>
-       </property>
-       <property name="default">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>750</x>
-         <y>450</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>OK</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_7">
-       <property name="geometry">
-        <rect>
-         <x>750</x>
-         <y>500</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Prev</string>
-       </property>
-       <property name="default">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLCDNumber" name="lcdNumber_2">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>780</x>
-         <y>0</y>
-         <width>161</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-         <kerning>true</kerning>
-        </font>
-       </property>
-       <property name="cursor">
-        <cursorShape>ForbiddenCursor</cursorShape>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Plain</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <property name="smallDecimalPoint">
-        <bool>false</bool>
-       </property>
-       <property name="segmentStyle">
-        <enum>QLCDNumber::Flat</enum>
-       </property>
-       <property name="intValue" stdset="0">
-        <number>1000</number>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_8">
-       <property name="geometry">
-        <rect>
-         <x>850</x>
-         <y>450</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-       <property name="default">
-        <bool>false</bool>
+        <string>Howard Douglas (6$)</string>
        </property>
       </widget>
      </widget>
@@ -2115,7 +687,7 @@ text-color: white;</string>
        <rect>
         <x>10</x>
         <y>100</y>
-        <width>120</width>
+        <width>161</width>
         <height>360</height>
        </rect>
       </property>
@@ -2144,17 +716,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>20</y>
-         <width>100</width>
+         <width>151</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Pep Guardiola (52$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_2">
@@ -2162,17 +735,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>60</y>
-         <width>100</width>
+         <width>131</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Jurgen Klopp (40$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_3">
@@ -2180,17 +754,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>100</y>
-         <width>100</width>
+         <width>151</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Arsene Wenger (37$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_4">
@@ -2198,17 +773,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>140</y>
-         <width>100</width>
+         <width>141</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Unai Emery (46$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_5">
@@ -2216,17 +792,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>180</y>
-         <width>100</width>
+         <width>141</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Carlo Ancelotti (29$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_6">
@@ -2234,17 +811,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>220</y>
-         <width>100</width>
+         <width>141</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Sean Dyche (20$)</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_25">
@@ -2252,53 +830,18 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>260</y>
-         <width>100</width>
+         <width>141</width>
          <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_26">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>300</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_27">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
+        <string>Eddie Howe (23$)</string>
        </property>
       </widget>
      </widget>
@@ -2366,7 +909,7 @@ text-color: white;</string>
 text-color: white;</string>
        </property>
        <property name="text">
-        <string>Choose staff: 1 manager, 1 assistant, 1 doctor</string>
+        <string>Choose staff: Manager, Assistant and Doctor.  They give you some bonus. :)</string>
        </property>
       </widget>
      </widget>
@@ -2378,387 +921,12 @@ text-color: white;</string>
      <attribute name="title">
       <string>Badges</string>
      </attribute>
-     <widget class="QGroupBox" name="Other">
-      <property name="geometry">
-       <rect>
-        <x>590</x>
-        <y>100</y>
-        <width>120</width>
-        <height>360</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Gill Sans MT</family>
-       </font>
-      </property>
-      <property name="title">
-       <string>Other</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-      <widget class="QCheckBox" name="checkBox_73">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_74">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>60</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_75">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>100</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_76">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>140</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_77">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>180</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_78">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>220</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_79">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>260</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_80">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>300</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_81">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="Badges_2">
-      <property name="geometry">
-       <rect>
-        <x>300</x>
-        <y>100</y>
-        <width>120</width>
-        <height>360</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Gill Sans MT</family>
-       </font>
-      </property>
-      <property name="acceptDrops">
-       <bool>false</bool>
-      </property>
-      <property name="title">
-       <string>Badges</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-      <widget class="QCheckBox" name="checkBox_55">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_56">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>60</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_57">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>100</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_58">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>140</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_59">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>180</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_60">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>220</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_61">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>260</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_62">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>300</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_63">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-     </widget>
      <widget class="QGroupBox" name="Badges">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>120</width>
+        <x>100</x>
+        <y>110</y>
+        <width>621</width>
         <height>360</height>
        </rect>
       </property>
@@ -2787,161 +955,59 @@ text-color: white;</string>
         <rect>
          <x>20</x>
          <y>20</y>
-         <width>100</width>
-         <height>17</height>
+         <width>611</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Faithful fans (40$) - 
+Fans love you ane give you support everywhere</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_65">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>60</y>
-         <width>100</width>
-         <height>17</height>
+         <y>160</y>
+         <width>591</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
+        <string>Stadium - fortress (40$) - 
+Nobody can play easy match on your stadium</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_66">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>100</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_67">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>140</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_68">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>180</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_69">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>220</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_70">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>260</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_71">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
          <y>300</y>
-         <width>100</width>
-         <height>17</height>
+         <width>601</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
          <family>Gill Sans MT</family>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>CheckBox</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_72">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Gill Sans MT</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>CheckBox</string>
+        <string>Wonderseason (50$) - 
+That's season, where everything is possible!</string>
        </property>
       </widget>
      </widget>
@@ -3009,7 +1075,7 @@ text-color: white;</string>
 text-color: white;</string>
        </property>
        <property name="text">
-        <string>If you have any money left, choose badges or additional staff for your team.</string>
+        <string>If you have any money left, choose passive bonus.</string>
        </property>
       </widget>
      </widget>
@@ -3018,8 +1084,8 @@ text-color: white;</string>
    <widget class="QPushButton" name="Ok">
     <property name="geometry">
      <rect>
-      <x>884</x>
-      <y>362</y>
+      <x>880</x>
+      <y>430</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -3040,7 +1106,7 @@ text-color: white;</string>
    <widget class="QLCDNumber" name="PlayerCounter">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>890</x>
       <y>160</y>
       <width>71</width>
       <height>71</height>
@@ -3126,8 +1192,8 @@ text-color: white;</string>
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>501</width>
-      <height>301</height>
+      <width>221</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="font">
@@ -3137,486 +1203,17 @@ text-color: white;</string>
      </font>
     </property>
     <property name="title">
-     <string>Your team:</string>
+     <string>Choose 11 players</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <property name="checked">
-     <bool>false</bool>
-    </property>
-    <widget class="QCheckBox" name="ChosenTeam1">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>161</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>1</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>45</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>2</string>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>3</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>95</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>4</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>120</y>
-       <width>151</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>5</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>145</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>6</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>170</y>
-       <width>161</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>7</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>195</y>
-       <width>171</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>8</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>220</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>9</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam10">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>245</y>
-       <width>171</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>10</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam11">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>270</y>
-       <width>171</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>11</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam18">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>170</y>
-       <width>161</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>18</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam12">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>20</y>
-       <width>161</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>12</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam15">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>95</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>15</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam13">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>45</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>13</string>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam17">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>145</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>17</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam14">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>70</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>14</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam19">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>195</y>
-       <width>171</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>19</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam16">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>120</y>
-       <width>151</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>16</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam21">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>245</y>
-       <width>171</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>21</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="ChosenTeam20">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>220</y>
-       <width>131</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Gill Sans MT</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>20</string>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="ChosenCounter">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
-       <y>20</y>
-       <width>71</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Consolas</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>ForbiddenCursor</cursorShape>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="lineWidth">
-      <number>2</number>
-     </property>
-     <property name="smallDecimalPoint">
-      <bool>false</bool>
-     </property>
-     <property name="digitCount">
-      <number>2</number>
-     </property>
-     <property name="segmentStyle">
-      <enum>QLCDNumber::Flat</enum>
-     </property>
-    </widget>
    </widget>
    <widget class="QPushButton" name="Simulate">
     <property name="geometry">
      <rect>
-      <x>884</x>
-      <y>322</y>
+      <x>880</x>
+      <y>390</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -3634,18 +1231,360 @@ text-color: white;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <zorder>Next</zorder>
+   <widget class="QLCDNumber" name="ChosenCounter">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>240</y>
+      <width>81</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Consolas</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="digitCount">
+     <number>2</number>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>-10</y>
+      <width>621</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string notr="true"/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <widget class="QLabel" name="Matches">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>110</y>
+       <width>591</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>601</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_3">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>601</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>120</y>
+       <width>611</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>611</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>611</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_7">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>601</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_8">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>260</y>
+       <width>601</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_9">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>310</y>
+       <width>601</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Matches_10">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>380</y>
+       <width>601</width>
+       <height>161</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="Simulate_2">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>350</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Gill Sans MT</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Simulate Round!</string>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="RoundCounter">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>160</y>
+      <width>81</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Consolas</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="digitCount">
+     <number>2</number>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Retry">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>520</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Gill Sans MT</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Retry</string>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>0</y>
+      <width>400</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="placeholderText">
+     <string>Set team name</string>
+    </property>
+   </widget>
    <zorder>Cancel</zorder>
    <zorder>Prev</zorder>
-   <zorder>GoalKeeperWidget</zorder>
    <zorder>MoneyLeft</zorder>
    <zorder>Ok</zorder>
    <zorder>PlayerCounter</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
-   <zorder>ChosenTeam</zorder>
    <zorder>Simulate</zorder>
+   <zorder>ChosenCounter</zorder>
+   <zorder>ChosenTeam</zorder>
+   <zorder>Simulate_2</zorder>
+   <zorder>RoundCounter</zorder>
    <zorder>SelectTeamWidget</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>Retry</zorder>
+   <zorder>lineEdit</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -3656,8 +1595,525 @@ text-color: white;</string>
      <height>21</height>
     </rect>
    </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Light">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Midlight">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>253</red>
+         <green>206</green>
+         <blue>187</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Dark">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>126</red>
+         <green>80</green>
+         <blue>62</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Mid">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>168</red>
+         <green>107</green>
+         <blue>83</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="BrightText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Shadow">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="HighlightedText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="AlternateBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>20</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="NoRole">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>255</red>
+         <green>255</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Light">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Midlight">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>253</red>
+         <green>206</green>
+         <blue>187</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Dark">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>126</red>
+         <green>80</green>
+         <blue>62</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Mid">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>168</red>
+         <green>107</green>
+         <blue>83</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="BrightText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Shadow">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="HighlightedText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="AlternateBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>20</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="NoRole">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>255</red>
+         <green>255</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Light">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Midlight">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>253</red>
+         <green>206</green>
+         <blue>187</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Dark">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>126</red>
+         <green>80</green>
+         <blue>62</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Mid">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>168</red>
+         <green>107</green>
+         <blue>83</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="BrightText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Shadow">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="HighlightedText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="AlternateBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>20</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="NoRole">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>252</red>
+         <green>161</green>
+         <blue>125</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>255</red>
+         <green>255</green>
+         <blue>220</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
+   </property>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <widget class="QMenu" name="menuDifficulty_level">
+     <property name="title">
+      <string>Difficulty level</string>
+     </property>
+     <addaction name="actionEasy"/>
+     <addaction name="actionMedium"/>
+     <addaction name="actionHard"/>
+    </widget>
+    <addaction name="menuDifficulty_level"/>
+    <addaction name="actionHow_to_Play"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionHow_to_Play">
+   <property name="text">
+    <string>How to Play</string>
+   </property>
+  </action>
+  <action name="actionEasy">
+   <property name="text">
+    <string>Easy</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="text">
+    <string>Medium</string>
+   </property>
+  </action>
+  <action name="actionHard">
+   <property name="text">
+    <string>Hard</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
