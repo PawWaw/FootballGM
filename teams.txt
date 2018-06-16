@@ -1,0 +1,180 @@
+Arsenal
+Emirates
+London
+140
+1
+0
+0
+0
+0
+Bournemouth
+Vitality Stadium
+Bournemouth
+80
+1
+0
+0
+0
+0
+Brighton & Hove
+Falmer Stadium
+Brighton
+80
+1
+0
+0
+0
+0
+Burnley
+Turf Moor
+Burnley
+80
+1
+0
+0
+0
+0
+Chelsea
+Stamford Bridge
+London
+140
+1
+0
+0
+0
+0
+Crystal Palace
+Selhurst Park
+London
+70
+1
+0
+0
+0
+0
+Everton
+Goodison Park
+Liverpool
+90
+1
+0
+0
+0
+0
+Huddersfield
+John Smith's Stadium
+Huddersfield
+80
+1
+0
+0
+0
+0
+Leicester
+King Power Stadium
+Leicester
+90
+1
+0
+0
+0
+0
+Liverpool
+Anfield
+Liverpool
+170
+1
+0
+0
+0
+0
+Manchester City
+Etihad
+Manchester
+180
+1
+0
+0
+0
+0
+Manchester United
+Old Trafford
+Manchester
+160
+1
+0
+0
+0
+0
+Newcastle
+St James's Park
+Newcastle
+90
+1
+0
+0
+0
+0
+Stoke
+Britannia Stadium
+Stoke-on-Trent
+80
+1
+0
+0
+0
+0
+Southampton
+St Mary's Stadium
+Southampton
+70
+1
+0
+0
+0
+0
+My Team
+User Stadium
+London
+40
+1
+0
+0
+0
+0
+Tottenham
+Wembley
+London
+140
+1
+0
+0
+0
+0
+Watford
+Vicarage Road
+Watford
+90
+1
+0
+0
+0
+0
+West Bromwich Albion
+The Hawthorns
+West Bromwich
+70
+1
+0
+0
+0
+0
+West Ham United
+London Stadium
+London
+70
+1
+0
+0
+0
+0
