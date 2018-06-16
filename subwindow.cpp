@@ -3,7 +3,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "player.h"
-#include "match.h"
 #include "goalkeeper.h"
 #include "defender.h"
 #include "midfielder.h"

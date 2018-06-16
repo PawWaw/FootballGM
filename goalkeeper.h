@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Goalkeeper : public Player
+class Goalkeeper
 {
     int reflex;
     int parades;

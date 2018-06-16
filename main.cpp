@@ -1,6 +1,6 @@
 #include "subwindow.h"
 #include "goalkeeper.h"
-#include "match.h"
+
 #include "player.h"
 #include <QApplication>
 

@@ -29,7 +29,6 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     subwindow.cpp \
-    season.cpp \
     attacker.cpp \
     defender.cpp \
     midfielder.cpp \
@@ -39,7 +38,6 @@ SOURCES += \
     player.cpp \
     statistics.cpp \
     team.cpp \
-    match.cpp \
     database.cpp \
     simulation.cpp \
     simulationround.cpp
@@ -47,7 +45,6 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     subwindow.h \
-    season.h \
     attacker.h \
     defender.h \
     midfielder.h \
@@ -59,15 +56,13 @@ HEADERS += \
     team.h \
     stdafx.h \
     targetver.h \
-    match.h \
     database.h \
     simulation.h \
     simulationround.h
 
 FORMS += \
         mainwindow.ui \
-    subwindow.ui \
-    season.ui
+    subwindow.ui
 
 DISTFILES += \
     readme
